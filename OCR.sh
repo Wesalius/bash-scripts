@@ -15,6 +15,8 @@ for file in *.pdf; do
     printf "Converting $file to TIFF with ImageMagick.\n"
     convert -density 300 "$file" -depth 8 -strip -background white \
             -alpha off ./temp.tiff
+    tiffsize=$(wc -c < ./temp.tiff)
+    printf "TIFF image size is $tiffsize bytes.\n"
     # Use Tesseract to perform OCR on the TIFF.
     printf "Attempting OCR with: "
     tesseract ./temp.tiff "$outfile" -l ces
